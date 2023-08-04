@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .bot-message {
+            text-align: left;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chatContainer">
+        <!-- As mensagens aparecerão aqui -->
+    </div>
+    <div class="chat-container">
+        <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
+        <button id="sendMessage">Enviar</button>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+
+        sendMessageBtn.addEventListener('click', async () => {
+            const userMessage = userInput.value.trim();
+            if (userMessage !== '') {
+                addUserMessage(userMessage);
+                userInput.value = '';
+
+                try {
+                    const apiKey = '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';
+                    const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            prompt: userMessage,
+                            max_tokens: 50
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data.choices && data.choices.length > 0) {
+                        const botReply = data.choices[0].text;
+                        addBotMessage(botReply);
+                    } else {
+                        console.error('Resposta da API vazia ou em formato incorreto.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao chamar a API:', error);
+                }
+            }
+        });
+
+        function addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+        }
+
+        function addBotMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot-message';
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+        }
+    </script>
+</body>
+</html>
