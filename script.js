@@ -9,7 +9,7 @@ sendMessageBtn.addEventListener('click', async () => {
         userInput.value = '';
 
         try {
-            const apiKey = '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';
+            const apiKey = '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';
             const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
 
             const response = await fetch(apiUrl, {
