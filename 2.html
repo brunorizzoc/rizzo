@@ -1,99 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()"/>
-    <title>ChatGPT Frontend</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .chat-container {
-            width: 80%;
-            max-width: 600px;
-            margin: auto;
-            border: 1px solid #ccc;
-            padding: 20px;
-        }
-        .message {
-            margin: 10px 0;
-        }
-        .user-message {
-            text-align: right;
-            color: blue;
-        }
-        .bot-message {
-            text-align: left;
-            color: green;
-        }
-    </style>
+    <title>ChatGPT API Test</title>
 </head>
 <body>
-    <div class="chat-container" id="chatContainer">
-        <!-- As mensagens aparecerão aqui -->
-    </div>
-    <div class="chat-container">
-        <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
-        <button id="sendMessage">Enviar</button>
+    <div id="chat-container">
+        <div id="chat-history"></div>
+        <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+        <button id="send-button">Enviar</button>
     </div>
 
     <script>
-        const chatContainer = document.getElementById('chatContainer');
-        const userInput = document.getElementById('userInput');
-        const sendMessageBtn = document.getElementById('sendMessage');
+        const apiKey = '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';
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
 
-        sendMessageBtn.addEventListener('click', async () => {
-            const userMessage = userInput.value.trim();
-            if (userMessage !== '') {
-                addUserMessage(userMessage);
+        async function sendMessageToChatGPT(message) {
+            chatHistory.innerHTML += `<div>User: ${message}</div>`;
+            
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [{ role: 'system', content: 'You are a helpful assistant.' }, { role: 'user', content: message }]
+                })
+            });
+
+            const data = await response.json();
+            const assistantReply = data.choices[0].message.content;
+            
+            chatHistory.innerHTML += `<div>Assistant: ${assistantReply}</div>`;
+        }
+
+        sendButton.addEventListener('click', () => {
+            const message = userInput.value;
+            if (message) {
+                sendMessageToChatGPT(message);
                 userInput.value = '';
-
-                try {
-                    const apiKey = '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';
-                    const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${apiKey}`
-                        },
-                        body: JSON.stringify({
-                            prompt: userMessage,
-                            max_tokens: 50
-                        })
-                    });
-
-                    const data = await response.json();
-                    console.log(data); // Verifique a estrutura dos dados retornados
-                    if (data.choices && data.choices.length > 0) {
-                        const botReply = data.choices[0].text;
-                        addBotMessage(botReply);
-                    } else {
-                        console.error('Resposta da API vazia ou em formato incorreto.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao chamar a API:', error);
-                }
             }
         });
 
-        function addUserMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message user-message';
-            messageDiv.textContent = message;
-            chatContainer.appendChild(messageDiv);
-        }
-
-        function addBotMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message bot-message';
-            messageDiv.textContent = message;
-            chatContainer.appendChild(messageDiv);
-        }
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                const message = userInput.value;
+                if (message) {
+                    sendMessageToChatGPT(message);
+                    userInput.value = '';
+                }
+            }
+        });
     </script>
 </body>
 </html>
