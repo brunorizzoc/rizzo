@@ -67,6 +67,7 @@
                     });
 
                     const data = await response.json();
+                    console.log(data); // Verifique a estrutura dos dados retornados
                     if (data.choices && data.choices.length > 0) {
                         const botReply = data.choices[0].text;
                         addBotMessage(botReply);
