@@ -43,32 +43,36 @@
     }
     /* Estilo para o campo de busca */
     #search {
-        width: 100%;
+        width: calc(50% - 5px); /* 50% menos 5 pixels de margem para ambos os lados */
         padding: 10px;
         margin-bottom: 10px;
         box-sizing: border-box;
+        background-color: #32CD32; /* Cor de fundo verde lima */
+        display: inline-block; /* Torna o campo de busca um elemento de bloco em linha */
     }
     /* Estilo para o panorama */
     #panorama {
         color: #00008B; /* Azul escuro */
         font-size: 28px;
         margin-bottom: 20px;
+        display: inline-block; /* Torna o panorama um elemento de bloco em linha */
+        width: calc(50% - 5px); /* 50% menos 5 pixels de margem para ambos os lados */
     }
 </style>
 </head>
 <body>
-
-<!-- Campo de busca -->
-<input type="text" id="search" placeholder="Buscar..." onkeyup="searchItems()">
 
 <div id="panorama">
     <!-- O número total de iniciativas será exibido aqui -->
     PANORAMA DE PROBLEMAS E SOLUÇÕES IA (33)
 </div>
 
+<!-- Campo de busca -->
+<input type="text" id="search" placeholder="Buscar..." onkeyup="searchItems()">
+
 <div class="row">
     <div class="column" id="coluna1">
-        <img src="https://brunorizzoc.github.io/rizzo/1.png" alt="Imagem" style="height: 300px;">
+        <img src="https://brunorizzoc.github.io/rizzo/1.png" alt="Imagem" style="height: 250px;">
         <h3 id="coluna1Title"> </h3>
         <ul class="text-left">
             <li>
@@ -98,15 +102,15 @@
         </ul>
     </div>
     <div class="column" id="coluna2">
-        <img src="https://brunorizzoc.github.io/rizzo/2.png" alt="Imagem" style="height: 300px;">
+        <img src="https://brunorizzoc.github.io/rizzo/2.png" alt="Imagem" style="height: 250px;">
         <h3 id="coluna2Title"> </h3>
     </div>
     <div class="column" id="coluna3">
-        <img src="https://brunorizzoc.github.io/rizzo/3.png" alt="Imagem" style="height: 300px;">
+        <img src="https://brunorizzoc.github.io/rizzo/3.png" alt="Imagem" style="height: 250px;">
         <h3 id="coluna3Title"> </h3>
     </div>
     <div class="column" id="coluna4">
-        <img src="https://brunorizzoc.github.io/rizzo/4.png" alt="Imagem" style="height: 300px;">
+        <img src="https://brunorizzoc.github.io/rizzo/4.png" alt="Imagem" style="height: 250px;">
         <h3 id="coluna4Title"> </h3>
     </div>
 </div>
