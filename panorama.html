@@ -9,37 +9,14 @@
         font-family: Calibri, sans-serif;
     }
     .column {
-        float: left;
-        width: 25%;
+        width: 100%; /* Alterado para ocupar 100% da largura */
         padding: 10px;
         box-sizing: border-box;
         text-align: center;
     }
-    /* Limpar floats após as colunas */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-    .column img {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%; /* Largura máxima em relação à largura da coluna */
-        height: auto; /* Altura automática para manter a proporção */
-    }
-    .text-left {
-        text-align: left; /* Alinha o texto à esquerda */
-    }
-    .author {
-        color: #00008B; /* Azul escuro */
-        font-size: 16px;
-    }
-    strong {
-        font-size: 16px;
-    }
     /* Estilo para o campo de busca */
     #search {
-        width: 40%; /* Definindo a largura para 60% */
+        width: 40%; /* Alterado para ocupar 100% da largura */
         padding: 10px;
         margin-bottom: 10px;
         box-sizing: border-box;
@@ -54,6 +31,34 @@
         margin-bottom: 20px;
         text-align: center;
     }
+    .text-left {
+        text-align: left; /* Alinha o texto à esquerda */
+    }
+    .author {
+        color: #00008B; /* Azul escuro */
+        font-size: 16px;
+    }
+    strong {
+        font-size: 16px;
+    }
+    /* Limpar floats após as colunas */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    /* Definir estilo de coluna para diferentes tamanhos de tela */
+    @media only screen and (min-width: 768px) {
+        .column {
+            width: 50%; /* Alterado para 50% em telas maiores que 768px */
+            float: left; /* Flutua as colunas lado a lado */
+        }
+    }
+    @media only screen and (min-width: 992px) {
+        .column {
+            width: 25%; /* Alterado para 25% em telas maiores que 992px para manter 4 colunas */
+        }
+    }
 </style>
 </head>
 <body>
@@ -65,7 +70,8 @@
 <br>
 <div class="row">
     <div class="column" id="coluna1">
-        <img src="https://brunorizzoc.github.io/rizzo/1.png" alt="Imagem" style="height: 250px;"><br><ul class="text-left">
+        <img src="https://brunorizzoc.github.io/rizzo/1.png" alt="Imagem" style="height: 250px;"><br>
+        <ul class="text-left">
 
             <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
             👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
@@ -73,100 +79,103 @@
             Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
             </li><br>
 
-            <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
-            👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
-            🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
-            Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            <li><strong>Outro item</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
             </li><br>
 
 
-            <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
-            👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
-            🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
-            Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            <li><strong>Zé</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🟢 Finalizado<br>
+            Descrição do item.
+            Descrição do item.
+            Descrição do item.
+            Descrição do item.
+            Descrição do item.
+            Descrição do item.
             </li><br>
 
-
-        </ul>
+            <!-- Adicione mais itens aqui, se necessário -->
+       
+ </ul>
     </div>
     <div class="column" id="coluna2">
-        <img src="https://brunorizzoc.github.io/rizzo/2.png" alt="Imagem" style="height: 250px;"><br><ul class="text-left">
-
-
-
-
+        <img src="https://brunorizzoc.github.io/rizzo/2.png" alt="Imagem" style="height: 250px;"><br>
+        <ul class="text-left">
             <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
             👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
             🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
             Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
             </li><br>
-         
+
+            <li><strong>Assistente xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
+            </li><br>
 
 
-
-
+            <li><strong>Assistente xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
+            </li><br>
+            <!-- Adicione mais itens aqui, se necessário -->
         </ul>
     </div>
     <div class="column" id="coluna3">
-        <img src="https://brunorizzoc.github.io/rizzo/3.png" alt="Imagem" style="height: 250px;"><br><ul class="text-left">
-
-
-
-
+        <img src="https://brunorizzoc.github.io/rizzo/3.png" alt="Imagem" style="height: 250px;"><br>
+        <ul class="text-left">
             <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
             👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
             🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
             Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
             </li><br>
 
-            <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
-            👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
-            🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
-            Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            <li><strong>Assistente xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
             </li><br>
-        
 
+            <li><strong>Assistente xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
+            </li><br>
 
+            <li><strong>Assistente YYY</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
+            </li><br>
 
+            <li><strong>ABCDE xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
+            </li><br>
+            <!-- Adicione mais itens aqui, se necessário -->
         </ul>
     </div>
     <div class="column" id="coluna4">
-        <img src="https://brunorizzoc.github.io/rizzo/4.png" alt="Imagem" style="height: 250px;"><br><ul class="text-left">
-      
-
-
-
-
-
+        <img src="https://brunorizzoc.github.io/rizzo/4.png" alt="Imagem" style="height: 250px;"><br>
+        <ul class="text-left">
             <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
             👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
             🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
             Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
             </li><br>
 
-
-
-            <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
-            👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
-            🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
-            Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            <li><strong>Assistente xpto</strong><br>
+            👤 <span class="author"> Autor / Outro autor</span><br>
+            🏁 Data / 🚦 Estado<br>
+            Descrição do item.
             </li><br>
 
-
-
-            <li><strong>Alfabetização Libbs / Escritório IA</strong><br>
-            👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
-            🏁 Jan24>Fev24 / 🚦 Em desenvolvimento<br>
-            Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
-            </li><br>
-
-
-
-
-
-
-
-
+            <!-- Adicione mais itens aqui, se necessário -->
         </ul>
     </div>
 </div>
