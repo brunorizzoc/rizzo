@@ -21,10 +21,6 @@
         display: table;
         clear: both;
     }
-    h3 {
-        color: #808080; /* Cinza */
-        text-align: center;
-    }
     .column img {
         display: block;
         margin: 0 auto;
@@ -43,75 +39,74 @@
     }
     /* Estilo para o campo de busca */
     #search {
-        width: calc(50% - 5px); /* 50% menos 5 pixels de margem para ambos os lados */
+        width: 40%; /* Definindo a largura para 60% */
         padding: 10px;
         margin-bottom: 10px;
         box-sizing: border-box;
-        background-color: #32CD32; /* Cor de fundo verde lima */
-        display: inline-block; /* Torna o campo de busca um elemento de bloco em linha */
+        background-color: #32CD32; /* Cor de fundo verde claro */
+        display: block; /* Torna o campo de busca um elemento de bloco */
+        margin: 0 auto; /* Centraliza o campo de busca */
     }
     /* Estilo para o panorama */
     #panorama {
         color: #00008B; /* Azul escuro */
         font-size: 28px;
         margin-bottom: 20px;
-        display: inline-block; /* Torna o panorama um elemento de bloco em linha */
-        width: calc(50% - 5px); /* 50% menos 5 pixels de margem para ambos os lados */
+        text-align: center;
     }
 </style>
 </head>
 <body>
 
-<div id="panorama">
-    <!-- O número total de iniciativas será exibido aqui -->
-    PANORAMA DE PROBLEMAS E SOLUÇÕES IA (33)
-</div>
+<div id="panorama">PANORAMA DE PROBLEMAS E SOLUÇÕES IA</div>
 
 <!-- Campo de busca -->
 <input type="text" id="search" placeholder="Buscar..." onkeyup="searchItems()">
-
+<br>
 <div class="row">
     <div class="column" id="coluna1">
         <img src="https://brunorizzoc.github.io/rizzo/1.png" alt="Imagem" style="height: 250px;">
-        <h3 id="coluna1Title"> </h3>
         <ul class="text-left">
             <li>
                 <strong>Alfabetização Libbs / Escritório IA</strong><br>
-                 👤 <span class="author">Natally Teixeira / Giulia Moretti</span><br>
+                 👤 <span class="author"> Teixeira / Giulia Moretti</span><br>
                 🏁 Jan24>Fev24 / Em desenvolvimento<br>
                 Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
             </li>
-            <br>
-            <br>
-            <li>
-                <strong>Xxx Libbs / Escritório IA</strong><br>
-                 👤 <span class="author">Zé Teixeira / Giulia Moretti</span><br>
-                🏁 Jan24>Fev24 / Em desenvolvimento<br>
-                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
-            </li>
-            <br>
-            <br>
-            <li>
-                <strong>Yyy Libbs / Escritório IA</strong><br>
-                 👤 <span class="author">Zé Teixeira / Giulia Moretti</span><br>
-                🏁 Jan24>Fev24 / Em desenvolvimento<br>
-                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
-            </li>
-            <br>
-            <br>
         </ul>
     </div>
     <div class="column" id="coluna2">
         <img src="https://brunorizzoc.github.io/rizzo/2.png" alt="Imagem" style="height: 250px;">
-        <h3 id="coluna2Title"> </h3>
+        <ul class="text-left">
+            <li>
+                <strong>ZZ Libbs / Escritório IA</strong><br>
+                 👤 <span class="author">Natally Teixeira /  Moretti</span><br>
+                🏁 Jan24>Fev24 / Em desenvolvimento<br>
+                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            </li>
+        </ul>
     </div>
     <div class="column" id="coluna3">
         <img src="https://brunorizzoc.github.io/rizzo/3.png" alt="Imagem" style="height: 250px;">
-        <h3 id="coluna3Title"> </h3>
+        <ul class="text-left">
+            <li>
+                <strong>YYY Libbs / Escritório IA</strong><br>
+                 👤 <span class="author">Natally Teixeira / Zé Moretti</span><br>
+                🏁 Jan24>Fev24 / Em desenvolvimento<br>
+                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            </li>
+        </ul>
     </div>
     <div class="column" id="coluna4">
         <img src="https://brunorizzoc.github.io/rizzo/4.png" alt="Imagem" style="height: 250px;">
-        <h3 id="coluna4Title"> </h3>
+        <ul class="text-left">
+            <li>
+                <strong>XX Libbs / Escritório IA</strong><br>
+                 👤 <span class="author">Natally Teixeira / Giulia </span><br>
+                🏁 Jan24>Fev24 / Em desenvolvimento<br>
+                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -121,6 +116,7 @@
         input = document.getElementById('search');
         filter = input.value.toUpperCase();
         ul = document.getElementsByTagName('ul');
+
         for (var i = 0; i < ul.length; i++) {
             li = ul[i].getElementsByTagName('li');
             for (var j = 0; j < li.length; j++) {
@@ -132,40 +128,7 @@
                 }
             }
         }
-        updateColumnTitles(); // Chama a função para atualizar os títulos das colunas após a busca
-        updatePanorama(); // Atualiza o número total de iniciativas no panorama
     }
-
-    function updateColumnTitles() {
-        var columns = document.getElementsByClassName('column');
-        for (var i = 0; i < columns.length; i++) {
-            var column = columns[i];
-            var title = column.getElementsByTagName('h3')[0];
-            var listItems = column.getElementsByTagName('li');
-            var visibleItems = 0;
-            for (var j = 0; j < listItems.length; j++) {
-                if (listItems[j].style.display !== 'none') {
-                    visibleItems++;
-                }
-            }
-            title.textContent = visibleItems + ' Iniciativas';
-        }
-    }
-
-    function updatePanorama() {
-        var totalInitiatives = 0;
-        var columns = document.getElementsByClassName('column');
-        for (var i = 0; i < columns.length; i++) {
-            var column = columns[i];
-            var listItems = column.getElementsByTagName('li');
-            totalInitiatives += listItems.length;
-        }
-        document.getElementById('panorama').innerHTML = "PANORAMA DE PROBLEMAS E SOLUÇÕES IA (" + totalInitiatives + ")";
-    }
-
-    // Chama a função para atualizar os títulos das colunas e o panorama ao carregar a página
-    updateColumnTitles();
-    updatePanorama();
 </script>
 
 </body>
