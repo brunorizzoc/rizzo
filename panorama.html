@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panorama IA Libbs</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .column {
+        float: left;
+        width: 25%;
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    /* Limpar floats após as colunas */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    h3 {
+        color: #808080; /* Cinza */
+        text-align: center;
+    }
+    .column img {
+        display: block;
+        margin: 0 auto;
+    }
+    .text-left {
+        text-align: left; /* Alinha o texto à esquerda */
+    }
+    .author {
+        color: #00008B; /* Azul escuro */
+        font-size: 14px;
+    }
+    strong {
+        font-size: 16px;
+    }
+    /* Estilo para o campo de busca */
+    #search {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+</style>
+</head>
+<body>
+
+<!-- Campo de busca -->
+<input type="text" id="search" placeholder="Buscar..." onkeyup="searchItems()">
+
+<div class="row">
+    <div class="column" id="coluna1">
+        <img src="https://cdn-icons-png.flaticon.com/512/896/896866.png" alt="Imagem" style="width: 200px; height: 200px;">
+        <h3 id="coluna1Title">11 Iniciativas</h3>
+        <ul class="text-left">
+            <li>
+                <strong>Alfabetização Libbs / Escritório IA</strong><br>
+                 👤 <span class="author">Natally Teixeira / Giulia Moretti</span><br>
+                🏁 Jan24>Fev24 / Em desenvolvimento<br>
+                Capacitar 100% lideranças até final do quarto trimestre, capacitar 100% analistas especialistas com casos de usos levantados de 2 diretorias ao final do quarto trimestre.
+            </li>
+            <br>
+            <br>
+        </ul>
+    </div>
+    <div class="column" id="coluna2">
+        <img src="https://cdn-icons-png.flaticon.com/512/896/896866.png" alt="Imagem" style="width: 200px; height: 200px;">
+        <h3 id="coluna2Title">11 Iniciativas</h3>
+    </div>
+    <div class="column" id="coluna3">
+        <img src="https://cdn-icons-png.flaticon.com/512/896/896866.png" alt="Imagem" style="width: 200px; height: 200px;">
+        <h3 id="coluna3Title">11 Iniciativas</h3>
+    </div>
+    <div class="column" id="coluna4">
+        <img src="https://cdn-icons-png.flaticon.com/512/896/896866.png" alt="Imagem" style="width: 200px; height: 200px;">
+        <h3 id="coluna4Title">11 Iniciativas</h3>
+    </div>
+</div>
+
+<script>
+    function searchItems() {
+        var input, filter, ul, li, txtValue;
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        ul = document.getElementsByTagName('ul');
+        for (var i = 0; i < ul.length; i++) {
+            li = ul[i].getElementsByTagName('li');
+            for (var j = 0; j < li.length; j++) {
+                txtValue = li[j].textContent || li[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[j].style.display = '';
+                } else {
+                    li[j].style.display = 'none';
+                }
+            }
+        }
+        updateColumnTitles(); // Chama a função para atualizar os títulos das colunas após a busca
+    }
+
+    function updateColumnTitles() {
+        var columns = document.getElementsByClassName('column');
+        for (var i = 0; i < columns.length; i++) {
+            var column = columns[i];
+            var title = column.getElementsByTagName('h3')[0];
+            var listItems = column.getElementsByTagName('li');
+            var visibleItems = 0;
+            for (var j = 0; j < listItems.length; j++) {
+                if (listItems[j].style.display !== 'none') {
+                    visibleItems++;
+                }
+            }
+            title.textContent = visibleItems + ' Iniciativas';
+        }
+    }
+
+    // Chama a função para atualizar os títulos das colunas ao carregar a página
+    updateColumnTitles();
+</script>
+
+</body>
+</html>
