@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tablet Screen</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
   body {
@@ -34,6 +35,8 @@
     background-color: #fff;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
+    width: calc(100% / 4);
+    height: calc(100% / 3);
   }
 
   .icon:hover {
@@ -47,18 +50,18 @@
 </head>
 <body>
 <div id="container">
-  <div class="icon" id="icon1">1</div>
-  <div class="icon" id="icon2">2</div>
-  <div class="icon" id="icon3">3</div>
-  <div class="icon" id="icon4">4</div>
-  <div class="icon" id="icon5">5</div>
-  <div class="icon" id="icon6">6</div>
-  <div class="icon" id="icon7">7</div>
-  <div class="icon" id="icon8">8</div>
-  <div class="icon" id="icon9">9</div>
-  <div class="icon" id="icon10">10</div>
-  <div class="icon" id="icon11">11</div>
-  <div class="icon" id="icon12">12</div>
+  <div class="icon" id="icon1"><i class="fas fa-car"></i></div>
+  <div class="icon" id="icon2"><i class="fas fa-bicycle"></i></div>
+  <div class="icon" id="icon3"><i class="fas fa-plane"></i></div>
+  <div class="icon" id="icon4"><i class="fas fa-rocket"></i></div>
+  <div class="icon" id="icon5"><i class="fas fa-train"></i></div>
+  <div class="icon" id="icon6"><i class="fas fa-ship"></i></div>
+  <div class="icon" id="icon7"><i class="fas fa-subway"></i></div>
+  <div class="icon" id="icon8"><i class="fas fa-truck"></i></div>
+  <div class="icon" id="icon9"><i class="fas fa-motorcycle"></i></div>
+  <div class="icon" id="icon10"><i class="fas fa-helicopter"></i></div>
+  <div class="icon" id="icon11"><i class="fas fa-ambulance"></i></div>
+  <div class="icon" id="icon12"><i class="fas fa-bus"></i></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -79,11 +82,11 @@
       $('.icon').each(function() {
         iconOrder.push($(this).attr('id'));
       });
-      sessionStorage.setItem('iconOrder', JSON.stringify(iconOrder));
+      localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
     }
 
     function loadIconOrder() {
-      var iconOrder = JSON.parse(sessionStorage.getItem('iconOrder'));
+      var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
           $('#' + iconOrder[i]).appendTo('#container');
