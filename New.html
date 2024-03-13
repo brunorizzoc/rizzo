@@ -15,8 +15,9 @@
   }
 
   #container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     width: 100vw;
     height: 100vh;
     padding: 20px;
@@ -25,9 +26,6 @@
   }
 
   .icon {
-    width: 25%;
-    height: 25vw; /* 25% da largura da tela */
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,16 +47,18 @@
 </head>
 <body>
 <div id="container">
-  <div class="icon">1a</div>
-  <div class="icon">2</div>
-  <div class="icon">3</div>
-  <div class="icon">4</div>
-  <div class="icon">5</div>
-  <div class="icon">6</div>
-  <div class="icon">7</div>
-  <div class="icon">8</div>
-  <div class="icon">9</div>
-  <div class="icon">10</div>
+  <div class="icon" id="icon1">1</div>
+  <div class="icon" id="icon2">2</div>
+  <div class="icon" id="icon3">3</div>
+  <div class="icon" id="icon4">4</div>
+  <div class="icon" id="icon5">5</div>
+  <div class="icon" id="icon6">6</div>
+  <div class="icon" id="icon7">7</div>
+  <div class="icon" id="icon8">8</div>
+  <div class="icon" id="icon9">9</div>
+  <div class="icon" id="icon10">10</div>
+  <div class="icon" id="icon11">11</div>
+  <div class="icon" id="icon12">12</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -77,17 +77,16 @@
     function updateIconOrder() {
       var iconOrder = [];
       $('.icon').each(function() {
-        iconOrder.push($(this).text());
+        iconOrder.push($(this).attr('id'));
       });
-      localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
+      sessionStorage.setItem('iconOrder', JSON.stringify(iconOrder));
     }
 
     function loadIconOrder() {
-      var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
+      var iconOrder = JSON.parse(sessionStorage.getItem('iconOrder'));
       if (iconOrder) {
-        var icons = $('.icon').toArray();
         for (var i = 0; i < iconOrder.length; i++) {
-          $(icons[i]).appendTo('#container');
+          $('#' + iconOrder[i]).appendTo('#container');
         }
       }
     }
