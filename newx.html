@@ -39,13 +39,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 90px;
+    font-size: 50px; /* Ajustando o tamanho dos ícones */
     border: 1px solid #ddd;
     background-color: #fff;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
-    width: 40px;
-    height: 40px;
+    width: 50px; /* Ajustando o tamanho dos ícones */
+    height: 50px; /* Ajustando o tamanho dos ícones */
   }
 
   .icon:hover {
@@ -96,8 +96,9 @@
 <script>
   $(document).ready(function() {
     $('.icon').draggable({
-      containment: 'parent',
+      containment: '#container',
       scroll: false,
+      grid: [100, 100],
       stop: function(event, ui) {
         updateIconOrder();
       }
@@ -112,23 +113,6 @@
           left: position.left,
           top: position.top
         });
-      });
-
-      // Verificar e trocar de posição com ícone existente
-      $('.icon').each(function() {
-        var position = $(this).position();
-        var row = Math.floor(position.top / 100);
-        var col = Math.floor(position.left / 100);
-
-        var existingIcon = iconOrder.find(icon => icon.left === position.left && icon.top === position.top && icon.id !== $(this).attr('id'));
-        if (existingIcon) {
-          var tempLeft = existingIcon.left;
-          var tempTop = existingIcon.top;
-          existingIcon.left = iconOrder.find(icon => icon.id === $(this).attr('id')).left;
-          existingIcon.top = iconOrder.find(icon => icon.id === $(this).attr('id')).top;
-          iconOrder.find(icon => icon.id === $(this).attr('id')).left = tempLeft;
-          iconOrder.find(icon => icon.id === $(this).attr('id')).top = tempTop;
-        }
       });
 
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
