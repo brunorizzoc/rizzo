@@ -104,7 +104,12 @@
     function updateIconOrder() {
       var iconOrder = [];
       $('.icon').each(function() {
-        iconOrder.push($(this).attr('id'));
+        var position = $(this).position();
+        iconOrder.push({
+          id: $(this).attr('id'),
+          left: position.left,
+          top: position.top
+        });
       });
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
     }
@@ -113,7 +118,10 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
-          $('#' + iconOrder[i]).appendTo('#container');
+          $('#' + iconOrder[i].id).css({
+            left: iconOrder[i].left + 'px',
+            top: iconOrder[i].top + 'px'
+          }).appendTo('#container');
         }
       }
     }
