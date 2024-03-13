@@ -1,1 +1,75 @@
-<!DOCTYPE html><html><head></head><body><p>&lt;!DOCTYPE html&gt;</p><p>&lt;html lang="en"&gt;</p><p>&lt;head&gt;</p><p>&lt;meta charset="UTF-8"&gt;</p><p>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p><p>&lt;title&gt;Tablet Screen&lt;/title&gt;</p><p>&lt;link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"&gt;</p><p>&lt;style&gt;</p><p>&nbsp; body {</p><p>&nbsp; &nbsp; margin: 0;</p><p>&nbsp; &nbsp; padding: 0;</p><p>&nbsp; &nbsp; overflow: hidden;</p><p>&nbsp; &nbsp; font-family: Arial, sans-serif;</p><p>&nbsp; &nbsp; background-color: #f5f5f5;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; #container {</p><p>&nbsp; &nbsp; display: flex;</p><p>&nbsp; &nbsp; flex-wrap: wrap;</p><p>&nbsp; &nbsp; width: 100vw;</p><p>&nbsp; &nbsp; height: 100vh;</p><p>&nbsp; &nbsp; padding: 20px;</p><p>&nbsp; &nbsp; box-sizing: border-box;</p><p>&nbsp; &nbsp; overflow: hidden;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .icon {</p><p>&nbsp; &nbsp; width: 25%;</p><p>&nbsp; &nbsp; height: 33.33%;</p><p>&nbsp; &nbsp; box-sizing: border-box;</p><p>&nbsp; &nbsp; display: flex;</p><p>&nbsp; &nbsp; justify-content: center;</p><p>&nbsp; &nbsp; align-items: center;</p><p>&nbsp; &nbsp; font-size: 24px;</p><p>&nbsp; &nbsp; border: 1px solid #ddd;</p><p>&nbsp; &nbsp; background-color: #fff;</p><p>&nbsp; &nbsp; cursor: pointer;</p><p>&nbsp; &nbsp; transition: transform 0.2s ease-in-out;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .icon:hover {</p><p>&nbsp; &nbsp; transform: scale(1.1);</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .ui-draggable-dragging {</p><p>&nbsp; &nbsp; transition: none;</p><p>&nbsp; }</p><p>&lt;/style&gt;</p><p>&lt;/head&gt;</p><p>&lt;body&gt;</p><p>&lt;div id="container"&gt;</p><p>&nbsp; &lt;div class="icon"&gt;1&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;2&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;3&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;4&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;5&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;6&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;7&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;8&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;9&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;10&lt;/div&gt;</p><p>&lt;/div&gt;</p><p><br></p><p>&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;</p><p>&lt;script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"&gt;&lt;/script&gt;</p><p>&lt;script&gt;</p><p>&nbsp; $(document).ready(function() {</p><p>&nbsp; &nbsp; $('.icon').draggable({</p><p>&nbsp; &nbsp; &nbsp; containment: 'parent',</p><p>&nbsp; &nbsp; &nbsp; scroll: false</p><p>&nbsp; &nbsp; });</p><p>&nbsp; });</p><p>&lt;/script&gt;</p><p>&lt;/body&gt;</p><p>&lt;/html&gt;</p></body></html>
+<!DOCTYPE html><html><head></head><body><p>&lt;!DOCTYPE html&gt;</p><p>&lt;html lang="en"&gt;</p><p>&lt;head&gt;</p><p>&lt;meta charset="UTF-8"&gt;</p><p>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p><p>&lt;title&gt;Tablet Screen&lt;/title&gt;</p><p>&lt;link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"&gt;</p><p>&lt;style&gt;</p><p>&nbsp; body {</p><p>&nbsp; &nbsp; margin: 0;</p><p>&nbsp; &nbsp; padding: 0;</p><p>&nbsp; &nbsp; overflow: hidden;</p><p>&nbsp; &nbsp; font-family: Arial, sans-serif;</p><p>&nbsp; &nbsp; background-color: #f5f5f5;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; #container {</p><p>&nbsp; &nbsp; display: flex;</p><p>&nbsp; &nbsp; flex-wrap: wrap;</p><p>&nbsp; &nbsp; width: 100vw;</p><p>&nbsp; &nbsp; height: 100vh;</p><p>&nbsp; &nbsp; padding: 20px;</p><p>&nbsp; &nbsp; box-sizing: border-box;</p><p>&nbsp; &nbsp; overflow: hidden;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .icon {</p><p>&nbsp; &nbsp; width: 25%;</p><p>&nbsp; &nbsp; height: 33.33%;</p><p>&nbsp; &nbsp; box-sizing: border-box;</p><p>&nbsp; &nbsp; display: flex;</p><p>&nbsp; &nbsp; justify-content: center;</p><p>&nbsp; &nbsp; align-items: center;</p><p>&nbsp; &nbsp; font-size: 24px;</p><p>&nbsp; &nbsp; border: 1px solid #ddd;</p><p>&nbsp; &nbsp; background-color: #fff;</p><p>&nbsp; &nbsp; cursor: pointer;</p><p>&nbsp; &nbsp; transition: transform 0.2s ease-in-out;</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .icon:hover {</p><p>&nbsp; &nbsp; transform: scale(1.1);</p><p>&nbsp; }</p><p><br></p><p>&nbsp; .ui-draggable-dragging {</p><p>&nbsp; &nbsp; transition: none;</p><p>&nbsp; }</p><p>&lt;/style&gt;</p><p>&lt;/head&gt;</p><p>&lt;body&gt;</p><p>&lt;div id="container"&gt;</p><p>&nbsp; &lt;div class="icon"&gt;1&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;2&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;3&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;4&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;5&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;6&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;7&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;8&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;9&lt;/div&gt;</p><p>&nbsp; &lt;div class="icon"&gt;10&lt;/div&gt;</p><p>&lt;/div&gt;</p><p><br></p><p>&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;</p><p>&lt;script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"&gt;&lt;/script&gt;</p><p>&lt;script&gt;</p><p>&nbsp; $(document).ready(function() {</p><p>&nbsp; &nbsp; $('.icon').draggable({</p><p>&nbsp; &nbsp; &nbsp; containment: 'parent',</p><p>&nbsp; &nbsp; &nbsp; scroll: false</p><p>&nbsp; &nbsp; });</p><p>&nbsp; })<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablet Screen</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+
+  #container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .icon {
+    width: 25%;
+    height: 33.33%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .icon:hover {
+    transform: scale(1.1);
+  }
+
+  .ui-draggable-dragging {
+    transition: none;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div class="icon">1</div>
+  <div class="icon">2</div>
+  <div class="icon">3</div>
+  <div class="icon">4</div>
+  <div class="icon">5</div>
+  <div class="icon">6</div>
+  <div class="icon">7</div>
+  <div class="icon">8</div>
+  <div class="icon">9</div>
+  <div class="icon">10</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.icon').draggable({
+      containment: 'parent',
+      scroll: false
+    });
+  });
+</script>
+</body>
+</html>
