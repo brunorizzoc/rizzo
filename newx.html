@@ -59,7 +59,8 @@
     $('.icon').draggable({
       containment: '#container',
       scroll: false,
-      snap: '.icon',
+      snap: '#container .icon',
+      snapMode: 'inner',
       stop: function(event, ui) {
         updateIconOrder();
       }
@@ -69,10 +70,11 @@
       var iconOrder = [];
       $('.icon').each(function(index) {
         var position = $(this).position();
+        var column = Math.round(position.left / 100) + 1;
+        var row = Math.round(position.top / 100) + 1;
+        var index = (row - 1) * 4 + column;
         iconOrder.push({
           id: $(this).attr('id'),
-          left: position.left,
-          top: position.top,
           index: index
         });
       });
@@ -81,6 +83,15 @@
         return a.index - b.index;
       });
 
+      for (var i = 0; i < iconOrder.length; i++) {
+        var column = ((i % 4) * 100);
+        var row = (Math.floor(i / 4) * 100);
+        $('#' + iconOrder[i].id).css({
+          left: column + 'px',
+          top: row + 'px'
+        });
+      }
+
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
     }
 
@@ -88,12 +99,12 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
-          var column = (i % 4) * 100;
-          var row = Math.floor(i / 4) * 100;
+          var column = ((i % 4) * 100);
+          var row = (Math.floor(i / 4) * 100);
           $('#' + iconOrder[i].id).css({
             left: column + 'px',
             top: row + 'px'
-          }).appendTo('#container');
+          });
         }
       }
     }
