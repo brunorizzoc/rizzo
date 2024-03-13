@@ -122,9 +122,11 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
+          var column = (i % 4) + 1;
+          var row = Math.floor(i / 4) + 1;
           $('#' + iconOrder[i].id).css({
-            left: iconOrder[i].left + 'px',
-            top: iconOrder[i].top + 'px'
+            left: (column - 1) * 100 + 'px',
+            top: (row - 1) * 100 + 'px'
           }).appendTo('#container');
         }
       }
