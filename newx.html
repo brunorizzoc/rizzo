@@ -67,11 +67,9 @@
         var draggable = ui.draggable;
         var droppable = $(this).find('.icon');
 
-        var draggableIndex = draggable.parent().index();
-        var droppableIndex = droppable.parent().index();
-
-        draggable.appendTo($(this));
-        droppable.appendTo($(draggable).parent());
+        var temp = $(this).html();
+        $(this).html(draggable.parent().html());
+        draggable.parent().html(temp);
 
         $('.icon').each(function(index) {
           $(this).find('.position').text(index + 1);
