@@ -86,7 +86,7 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         var icons = $('.icon').toArray();
-        for (var i = 0; i < icons.length; i++) {
+        for (var i = 0; i < iconOrder.length; i++) {
           $(icons[i]).appendTo('#container');
         }
       }
