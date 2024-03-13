@@ -6,12 +6,47 @@
 <title>Tablet Screen</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+  table {
+    width: 100vw;
+    height: 100vh;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px; /* Aumenta o tamanho dos ícones */
+    cursor: pointer;
+    width: 150px; /* Aumenta o tamanho dos ícones */
+    height: 150px; /* Aumenta o tamanho dos ícones */
+    border: 1px solid #ccc; /* Adiciona uma borda */
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+  }
+
+  .position {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+</style>
 </head>
 <body>
 <table>
   <tr>
-    <td class="icon" id="icon1"><i class="fas fa-car"></i></td>
-    <td class="icon" id="icon2"><i class="fas fa-bicycle"></i></td>
+    <td class="icon" id="icon1"><i class="fas fa-car"></i><span class="position"></span></td>
+    <td class="icon" id="icon2"><i class="fas fa-bicycle"></i><span class="position"></span></td>
   </tr>
 </table>
 
@@ -46,6 +81,7 @@
 
       for (var i = 0; i < iconOrder.length; i++) {
         $('#' + iconOrder[i].id).parent().css('order', i + 1);
+        $('#' + iconOrder[i].id).siblings('.position').text(i + 1);
       }
 
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
@@ -56,6 +92,7 @@
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
           $('#' + iconOrder[i].id).parent().css('order', i + 1);
+          $('#' + iconOrder[i].id).siblings('.position').text(i + 1);
         }
       }
     }
