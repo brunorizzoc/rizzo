@@ -15,13 +15,15 @@
     background-color: #f5f5f5;
   }
 
-  #container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+  table {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 0;
+    text-align: center;
   }
 
   .icon {
@@ -36,10 +38,12 @@
 </style>
 </head>
 <body>
-<div id="container">
-  <div class="icon" id="icon1"><i class="fas fa-car"></i></div>
-  <div class="icon" id="icon2"><i class="fas fa-bicycle"></i></div>
-</div>
+<table>
+  <tr>
+    <td class="icon" id="icon1"><i class="fas fa-car"></i></td>
+    <td class="icon" id="icon2"><i class="fas fa-bicycle"></i></td>
+  </tr>
+</table>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -47,9 +51,9 @@
 <script>
   $(document).ready(function() {
     $('.icon').draggable({
-      containment: '#container',
+      containment: 'parent',
       scroll: false,
-      snap: '#container .icon',
+      snap: 'td',
       snapMode: 'inner',
       stop: function(event, ui) {
         updateIconOrder();
@@ -59,23 +63,19 @@
     function updateIconOrder() {
       var iconOrder = [];
       $('.icon').each(function(index) {
-        var position = $(this).position();
-        var row = Math.round(position.top / 100) + 1;
+        var cellIndex = $(this).parent().index();
         iconOrder.push({
           id: $(this).attr('id'),
-          row: row
+          cellIndex: cellIndex
         });
       });
 
       iconOrder.sort(function(a, b) {
-        return a.row - b.row;
+        return a.cellIndex - b.cellIndex;
       });
 
       for (var i = 0; i < iconOrder.length; i++) {
-        var row = ((i % 2) * 100);
-        $('#' + iconOrder[i].id).css({
-          top: row + 'px'
-        });
+        $('#' + iconOrder[i].id).parent().css('order', i + 1);
       }
 
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
@@ -85,10 +85,7 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
-          var row = ((i % 2) * 100);
-          $('#' + iconOrder[i].id).css({
-            top: row + 'px'
-          });
+          $('#' + iconOrder[i].id).parent().css('order', i + 1);
         }
       }
     }
