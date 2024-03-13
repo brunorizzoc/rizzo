@@ -67,8 +67,15 @@
         var draggable = ui.draggable;
         var droppable = $(this).find('.icon');
 
-        draggable.css({top: 0, left: 0}).appendTo($(this));
+        var draggableIndex = draggable.parent().index();
+        var droppableIndex = droppable.parent().index();
+
+        draggable.appendTo($(this));
         droppable.appendTo($(draggable).parent());
+
+        $('.icon').each(function(index) {
+          $(this).find('.position').text(index + 1);
+        });
       }
     });
   });
