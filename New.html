@@ -26,11 +26,18 @@
     overflow: hidden;
   }
 
+  #title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
   .icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px; /* Ajuste o tamanho do ícone aqui */
+    font-size: 75px; /* Triplicando o tamanho */
     border: 1px solid #ddd;
     background-color: #fff;
     cursor: pointer;
@@ -46,22 +53,39 @@
   .ui-draggable-dragging {
     transition: none;
   }
+
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .blue {
+    color: blue;
+  }
+
+  .yellow {
+    color: yellow;
+  }
 </style>
 </head>
 <body>
+<div id="title">Libbs Home</div>
 <div id="container">
-  <div class="icon" id="icon1"><i class="fas fa-car"></i></div>
-  <div class="icon" id="icon2"><i class="fas fa-bicycle"></i></div>
-  <div class="icon" id="icon3"><i class="fas fa-plane"></i></div>
-  <div class="icon" id="icon4"><i class="fas fa-rocket"></i></div>
-  <div class="icon" id="icon5"><i class="fas fa-train"></i></div>
-  <div class="icon" id="icon6"><i class="fas fa-ship"></i></div>
-  <div class="icon" id="icon7"><i class="fas fa-subway"></i></div>
-  <div class="icon" id="icon8"><i class="fas fa-truck"></i></div>
-  <div class="icon" id="icon9"><i class="fas fa-motorcycle"></i></div>
-  <div class="icon" id="icon10"><i class="fas fa-helicopter"></i></div>
-  <div class="icon" id="icon11"><i class="fas fa-ambulance"></i></div>
-  <div class="icon" id="icon12"><i class="fas fa-bus"></i></div>
+  <div class="icon red" id="icon1"><i class="fas fa-car"></i></div>
+  <div class="icon green" id="icon2"><i class="fas fa-bicycle"></i></div>
+  <div class="icon blue" id="icon3"><i class="fas fa-plane"></i></div>
+  <div class="icon yellow" id="icon4"><i class="fas fa-rocket"></i></div>
+  <div class="icon red" id="icon5"><i class="fas fa-train"></i></div>
+  <div class="icon green" id="icon6"><i class="fas fa-ship"></i></div>
+  <div class="icon blue" id="icon7"><i class="fas fa-subway"></i></div>
+  <div class="icon yellow" id="icon8"><i class="fas fa-truck"></i></div>
+  <div class="icon red" id="icon9"><i class="fas fa-motorcycle"></i></div>
+  <div class="icon green" id="icon10"><i class="fas fa-helicopter"></i></div>
+  <div class="icon blue" id="icon11"><i class="fas fa-ambulance"></i></div>
+  <div class="icon yellow" id="icon12"><i class="fas fa-bus"></i></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
