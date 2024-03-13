@@ -76,6 +76,13 @@
         $('.icon').each(function(index) {
           $(this).find('.position').text(index + 1);
         });
+
+        $('.icon').draggable('destroy');
+        $('.icon').draggable({
+          containment: 'parent',
+          scroll: false,
+          revert: 'invalid'
+        });
       }
     });
   });
