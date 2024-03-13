@@ -23,10 +23,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 80px;
+    font-size: 50px;
     cursor: pointer;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -47,59 +47,30 @@
 <body>
 <table>
   <tr>
-    <td class="icon" id="icon1"><i class="fas fa-car"></i><span class="position"></span></td>
-    <td class="icon" id="icon2"><i class="fas fa-bicycle"></i><span class="position"></span></td>
+    <td class="icon" id="icon1"><span class="position">1</span><i class="fas fa-car"></i></td>
+    <td class="icon" id="icon2"><span class="position">2</span><i class="fas fa-bicycle"></i></td>
   </tr>
 </table>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <script>
   $(document).ready(function() {
     $('.icon').draggable({
       containment: 'parent',
       scroll: false,
-      snap: 'td',
-      snapMode: 'inner',
-      stop: function(event, ui) {
-        updateIconOrder();
-      }
+      revert: 'invalid'
     });
 
-    function updateIconOrder() {
-      var iconOrder = [];
-      $('.icon').each(function(index) {
-        var cellIndex = $(this).parent().index();
-        iconOrder.push({
-          id: $(this).attr('id'),
-          cellIndex: cellIndex
-        });
-      });
+    $('td').droppable({
+      drop: function(event, ui) {
+        var draggable = ui.draggable;
+        var droppable = $(this).find('.icon');
 
-      iconOrder.sort(function(a, b) {
-        return a.cellIndex - b.cellIndex;
-      });
-
-      for (var i = 0; i < iconOrder.length; i++) {
-        $('#' + iconOrder[i].id).parent().css('order', i + 1);
-        $('#' + iconOrder[i].id).siblings('.position').text(i + 1);
+        draggable.css({top: 0, left: 0}).appendTo($(this));
+        droppable.appendTo($(draggable).parent());
       }
-
-      localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
-    }
-
-    function loadIconOrder() {
-      var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
-      if (iconOrder) {
-        for (var i = 0; i < iconOrder.length; i++) {
-          $('#' + iconOrder[i].id).parent().css('order', i + 1);
-          $('#' + iconOrder[i].id).siblings('.position').text(i + 1);
-        }
-      }
-    }
-
-    loadIconOrder();
+    });
   });
 </script>
 </body>
