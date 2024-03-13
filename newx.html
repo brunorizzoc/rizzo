@@ -59,7 +59,7 @@
     $('.icon').draggable({
       containment: '#container',
       scroll: false,
-      grid: [100, 100],
+      snap: '.icon',
       stop: function(event, ui) {
         updateIconOrder();
       }
@@ -67,13 +67,18 @@
 
     function updateIconOrder() {
       var iconOrder = [];
-      $('.icon').each(function() {
+      $('.icon').each(function(index) {
         var position = $(this).position();
         iconOrder.push({
           id: $(this).attr('id'),
           left: position.left,
-          top: position.top
+          top: position.top,
+          index: index
         });
+      });
+
+      iconOrder.sort(function(a, b) {
+        return a.index - b.index;
       });
 
       localStorage.setItem('iconOrder', JSON.stringify(iconOrder));
@@ -83,11 +88,11 @@
       var iconOrder = JSON.parse(localStorage.getItem('iconOrder'));
       if (iconOrder) {
         for (var i = 0; i < iconOrder.length; i++) {
-          var column = (i % 4) + 1;
-          var row = Math.floor(i / 4) + 1;
+          var column = (i % 4) * 100;
+          var row = Math.floor(i / 4) * 100;
           $('#' + iconOrder[i].id).css({
-            left: (column - 1) * 100 + 'px',
-            top: (row - 1) * 100 + 'px'
+            left: column + 'px',
+            top: row + 'px'
           }).appendTo('#container');
         }
       }
