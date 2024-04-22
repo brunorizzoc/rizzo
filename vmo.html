@@ -30,26 +30,26 @@
         <label for="searchInput">Pesquisar:</label>
         <input type="text" id="searchInput" name="searchInput" placeholder="Digite sua pesquisa...">
         
-        <label for="filtroIniciativa"> por Iniciativa:</label>
+        <label for="filtroIniciativa">Filtrar por Iniciativa:</label>
         <select id="filtroIniciativa">
             <option value="">Todas</option>
             <option value="LIS SAC">LIS SAC</option>
             <option value="EBR">EBR</option>
             <option value="TELHADO FÁBRICA">TELHADO FÁBRICA</option>
         </select>
-        <label for="filtroCategoria"> por Categoria:</label>
+        <label for="filtroCategoria">Filtrar por Categoria:</label>
         <select id="filtroCategoria">
             <option value="">Todas</option>
             <option value="A">A</option>
             <option value="B">B</option>
         </select>
-        <label for="filtroStatus"> por Status:</label>
+        <label for="filtroStatus">Filtrar por Status:</label>
         <select id="filtroStatus">
             <option value="">Todos</option>
             <option value="Em andamento">Em andamento</option>
             <option value="Finalizado">Finalizado</option>
         </select>
-        <label for="filtroNome"> por Nome:</label>
+        <label for="filtroNome">Filtrar por Nome:</label>
         <select id="filtroNome">
             <option value="">Todos</option>
             <option value="Bruno Rizzo">Bruno Rizzo</option>
@@ -72,7 +72,7 @@
                 <th>Estratégico</th>
                 <th>Categoria</th>
                 <th>Status</th>
-                <th>Envovidos</th>
+                <th>Envolvidos</th>
             </tr>
         </thead>
         <tbody id="resultsBody">
@@ -144,7 +144,7 @@
             });
 
             displayResults(filteredResults);
-            displayPeopleDetails(filteredResults);
+            displayPeopleDetails(filteredResults, filtroNome);
         }
 
         function displayResults(results) {
@@ -164,10 +164,10 @@
             });
         }
 
-        function displayPeopleDetails(results) {
+        function displayPeopleDetails(results, filtroNome) {
             const filteredEnvovidos = envolvidos.filter(envolvido =>
-                results.some(result => result.Iniciativa === iniciativas.find(iniciativa => inicitiva.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
-                (document.getElementById('filtroNome').value === '' || envolvido.Pessoa === document.getElementById('filtroNome').value)
+                results.some(result => result.Iniciativa === iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
+                (filtroNome === '' || envolvido.Pessoa === filtroNome)
             );
 
             const peopleDetails = {};
