@@ -163,40 +163,41 @@
             });
         }
 
-        function displayPeopleDetails(results, filtroNome) {
-            const filteredEnvovidos = envolvidos.filter(envolvido =>
-                results.some(result => result.Iniciativa === iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
-                (filtroNome === '' || envolvidos.some(envolvido => envolvido.Pessoa === filtroNome && envolvido.CodIniciativa === iniciativa.CodIniciativa))
-            );
+     function displayPeopleDetails(results, filtroNome) {
+    const filteredEnvovidos = envolvidos.filter(envolvido =>
+        results.some(result => result.Iniciativa === iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
+        (filtroNome === '' || envolvidos.some(envolvido => envolvido.Pessoa === filtroNome && envolvido.CodIniciativa === envolvido.CodIniciativa))
+    );
 
-            const peopleDetails = {};
+    const peopleDetails = {};
 
-            filteredEnvovidos.forEach(envolvido => {
-                if (!peopleDetails[envolvido.Pessoa]) {
-                    peopleDetails[envolvido.Pessoa] = {
-                        count: 1,
-                        iniciativas: [iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa]
-                    };
-                } else {
-                    peopleDetails[envolvido.Pessoa].count++;
-                    peopleDetails[envolvido.Pessoa].iniciativas.push(iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa);
-                }
-            });
-
-            const peopleBody = document.getElementById('peopleBody');
-            peopleBody.innerHTML = '';
-
-            Object.keys(peopleDetails).forEach(nome => {
-                const { count, iniciativas } = peopleDetails[nome];
-                peopleBody.innerHTML += `
-                    <tr>
-                        <td>${nome}</td>
-                        <td>${count}</td>
-                        <td>${iniciativas.join(', ')}</td>
-                    </tr>
-                `;
-            });
+    filteredEnvovidos.forEach(envolvido => {
+        if (!peopleDetails[envolvido.Pessoa]) {
+            peopleDetails[envolvido.Pessoa] = {
+                count: 1,
+                iniciativas: [iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa]
+            };
+        } else {
+            peopleDetails[envolvido.Pessoa].count++;
+            peopleDetails[envolvido.Pessoa].iniciativas.push(iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa);
         }
+    });
+
+    const peopleBody = document.getElementById('peopleBody');
+    peopleBody.innerHTML = '';
+
+    Object.keys(peopleDetails).forEach(nome => {
+        const { count, iniciativas } = peopleDetails[nome];
+        peopleBody.innerHTML += `
+            <tr>
+                <td>${nome}</td>
+                <td>${count}</td>
+                <td>${iniciativas.join(', ')}</td>
+            </tr>
+        `;
+    });
+}
+
 
         // Função para ordenar a tabela de resultados
         function sortTable(col) {
