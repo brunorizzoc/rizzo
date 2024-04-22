@@ -21,15 +21,15 @@
         }
         th {
             background-color: #f2f2f2;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Pesquisa de Iniciativas e Envolvidos</h1>
+    <h1>Libbs | Iniciativas e Envolvidos</h1>
     <form id="searchForm">
         <label for="searchInput">Pesquisar:</label>
         <input type="text" id="searchInput" name="searchInput" placeholder="Digite sua pesquisa...">
-        
         <label for="filtroIniciativa">Filtrar por Iniciativa:</label>
         <select id="filtroIniciativa">
             <option value="">Todas</option>
@@ -37,19 +37,19 @@
             <option value="EBR">EBR</option>
             <option value="TELHADO FÁBRICA">TELHADO FÁBRICA</option>
         </select>
-        <label for="filtroCategoria">Filtrar por Categoria:</label>
+        <label for="filtroCategoria"> por Categoria:</label>
         <select id="filtroCategoria">
             <option value="">Todas</option>
             <option value="A">A</option>
             <option value="B">B</option>
         </select>
-        <label for="filtroStatus">Filtrar por Status:</label>
+        <label for="filtroStatus"> por Status:</label>
         <select id="filtroStatus">
             <option value="">Todos</option>
             <option value="Em andamento">Em andamento</option>
             <option value="Finalizado">Finalizado</option>
         </select>
-        <label for="filtroNome">Filtrar por Nome:</label>
+        <label for="filtroNome"> por Nome:</label>
         <select id="filtroNome">
             <option value="">Todos</option>
             <option value="Bruno Rizzo">Bruno Rizzo</option>
@@ -61,18 +61,17 @@
             <option value="Rafael Henrique">Rafael Henrique</option>
             <option value="Marilyn Fietosa">Marilyn Fietosa</option>
         </select>
-
         <button type="submit">Pesquisar</button>
     </form>
 
     <table id="resultsTable">
         <thead>
             <tr>
-                <th>Iniciativa</th>
-                <th>Estratégico</th>
-                <th>Categoria</th>
-                <th>Status</th>
-                <th>Envolvidos</th>
+                <th onclick="sortTable(0)">Iniciativa</th>
+                <th onclick="sortTable(1)">Estratégico</th>
+                <th onclick="sortTable(2)">Categoria</th>
+                <th onclick="sortTable(3)">Status</th>
+                <th onclick="sortTable(4)">Envovidos</th>
             </tr>
         </thead>
         <tbody id="resultsBody">
@@ -83,8 +82,8 @@
     <table id="peopleTable">
         <thead>
             <tr>
-                <th>Nome</th>
-                <th>Quantidade de Projetos</th>
+                <th onclick="sortTablePeople(0)">Nome</th>
+                <th onclick="sortTablePeople(1)">Quantidade de Projetos</th>
                 <th>Iniciativas</th>
             </tr>
         </thead>
@@ -167,7 +166,7 @@
         function displayPeopleDetails(results, filtroNome) {
             const filteredEnvovidos = envolvidos.filter(envolvido =>
                 results.some(result => result.Iniciativa === iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
-                (filtroNome === '' || envolvido.Pessoa === filtroNome)
+                (filtroNome === '' || envolvidos.some(envolvido => envolvido.Pessoa === filtroNome && envolvido.CodIniciativa === iniciativa.CodIniciativa))
             );
 
             const peopleDetails = {};
@@ -197,6 +196,40 @@
                     </tr>
                 `;
             });
+        }
+
+        // Função para ordenar a tabela de resultados
+        function sortTable(col) {
+            const table = document.getElementById("resultsTable");
+            const rows = Array.from(table.rows).slice(1);
+            const sortOrder = table.rows[0].cells[col].getAttribute("data-order") === "asc" ? -1 : 1;
+
+            rows.sort((a, b) => {
+                const aValue = a.cells[col].textContent || a.cells[col].innerText;
+                const bValue = b.cells[col].textContent || b.cells[col].innerText;
+                return aValue.localeCompare(bValue) * sortOrder;
+            });
+
+            table.removeChild(table.tBodies[0]);
+            rows.forEach(row => table.appendChild(row));
+            table.rows[0].cells[col].setAttribute("data-order", sortOrder === 1 ? "asc" : "desc");
+        }
+
+        // Função para ordenar a tabela de pessoas
+        function sortTablePeople(col) {
+            const table = document.getElementById("peopleTable");
+            const rows = Array.from(table.rows).slice(1);
+            const sortOrder = table.rows[0].cells[col].getAttribute("data-order") === "asc" ? -1 : 1;
+
+            rows.sort((a, b) => {
+                const aValue = a.cells[col].textContent || a.cells[col].innerText;
+                const bValue = b.cells[col].textContent || b.cells[col].innerText;
+                return aValue.localeCompare(bValue) * sortOrder;
+            });
+
+            table.removeChild(table.tBodies[0]);
+            rows.forEach(row => table.appendChild(row));
+            table.rows[0].cells[col].setAttribute("data-order", sortOrder === 1 ? "asc" : "desc");
         }
 
         document.getElementById('searchForm').addEventListener('submit', search);
