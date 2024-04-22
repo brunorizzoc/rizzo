@@ -143,96 +143,40 @@
             });
 
             displayResults(filteredResults);
-            displayPeopleDetails(filteredResults, filtroNome);
         }
 
+        // Função para exibir os resultados na primeira tabela
         function displayResults(results) {
             const resultsBody = document.getElementById('resultsBody');
             resultsBody.innerHTML = '';
-
             results.forEach(result => {
-                resultsBody.innerHTML += `
-                    <tr>
-                        <td>${result.Iniciativa}</td>
-                        <td>${result.Estratégico}</td>
-                        <td>${result.Categoria}</td>
-                        <td>${result.Status}</td>
-                        <td>${result.Envovidos}</td>
-                    </tr>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${result.Iniciativa}</td>
+                    <td>${result.Estratégico}</td>
+                    <td>${result.Categoria}</td>
+                    <td>${result.Status}</td>
+                    <td>${result.Envovidos}</td>
                 `;
+                resultsBody.appendChild(row);
             });
         }
 
-        function displayPeopleDetails(results, filtroNome) {
-            const filteredEnvovidos = envolvidos.filter(envolvido =>
-                results.some(result => result.Iniciativa === iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
-                (filtroNome === '' || envolvidos.some(envolvido => envolvido.Pessoa === filtroNome && envolvido.CodIniciativa === iniciativa.CodIniciativa))
-            );
-
-            const peopleDetails = {};
-
-            filteredEnvovidos.forEach(envolvido => {
-                if (!peopleDetails[envolvido.Pessoa]) {
-                    peopleDetails[envolvido.Pessoa] = {
-                        count: 1,
-                        iniciativas: [iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa]
-                    };
-                } else {
-                    peopleDetails[envolvido.Pessoa].count++;
-                    peopleDetails[envolvido.Pessoa].iniciativas.push(iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa);
-                }
-            });
-
-            const peopleBody = document.getElementById('peopleBody');
-            peopleBody.innerHTML = '';
-
-            Object.keys(peopleDetails).forEach(nome => {
-                const { count, iniciativas } = peopleDetails[nome];
-                peopleBody.innerHTML += `
-                    <tr>
-                        <td>${nome}</td>
-                        <td>${count}</td>
-                        <td>${iniciativas.join(', ')}</td>
-                    </tr>
-                `;
-            });
+        // Função para classificar a tabela
+        function sortTable(colIndex) {
+            // Implemente a lógica de classificação aqui
         }
 
-        // Função para ordenar a tabela de resultados
-        function sortTable(col) {
-            const table = document.getElementById("resultsTable");
-            const rows = Array.from(table.rows).slice(1);
-            const sortOrder = table.rows[0].cells[col].getAttribute("data-order") === "asc" ? -1 : 1;
-
-            rows.sort((a, b) => {
-                const aValue = a.cells[col].textContent || a.cells[col].innerText;
-                const bValue = b.cells[col].textContent || b.cells[col].innerText;
-                return aValue.localeCompare(bValue) * sortOrder;
-            });
-
-            table.removeChild(table.tBodies[0]);
-            rows.forEach(row => table.appendChild(row));
-            table.rows[0].cells[col].setAttribute("data-order", sortOrder === 1 ? "asc" : "desc");
+        // Função para classificar a segunda tabela
+        function sortTablePeople(colIndex) {
+            // Implemente a lógica de classificação aqui
         }
 
-        // Função para ordenar a tabela de pessoas
-        function sortTablePeople(col) {
-            const table = document.getElementById("peopleTable");
-            const rows = Array.from(table.rows).slice(1);
-            const sortOrder = table.rows[0].cells[col].getAttribute("data-order") === "asc" ? -1 : 1;
-
-            rows.sort((a, b) => {
-                const aValue = a.cells[col].textContent || a.cells[col].innerText;
-                const bValue = b.cells[col].textContent || b.cells[col].innerText;
-                return aValue.localeCompare(bValue) * sortOrder;
-            });
-
-            table.removeChild(table.tBodies[0]);
-            rows.forEach(row => table.appendChild(row));
-            table.rows[0].cells[col].setAttribute("data-order", sortOrder === 1 ? "asc" : "desc");
-        }
-
+        // Associar a função de pesquisa ao evento submit do formulário
         document.getElementById('searchForm').addEventListener('submit', search);
+
+        // Exibir todos os resultados ao carregar a página
+        search({ preventDefault: () => {} });
     </script>
 </body>
 </html>
