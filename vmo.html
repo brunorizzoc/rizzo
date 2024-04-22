@@ -62,7 +62,7 @@
             <option value="Marilyn Fietosa">Marilyn Fietosa</option>
         </select>
 
-         | <button type="submit">Pesquisar</button>
+        <button type="submit">Pesquisar</button>
     </form>
 
     <table id="resultsTable">
@@ -144,7 +144,7 @@
             });
 
             displayResults(filteredResults);
-            displayPeopleDetails();
+            displayPeopleDetails(filteredResults);
         }
 
         function displayResults(results) {
@@ -164,10 +164,15 @@
             });
         }
 
-        function displayPeopleDetails() {
+        function displayPeopleDetails(results) {
+            const filteredEnvovidos = envolvidos.filter(envolvido =>
+                results.some(result => result.Iniciativa === iniciativas.find(iniciativa => inicitiva.CodIniciativa === envolvido.CodIniciativa).Iniciativa) &&
+                (document.getElementById('filtroNome').value === '' || envolvido.Pessoa === document.getElementById('filtroNome').value)
+            );
+
             const peopleDetails = {};
 
-            envolvidos.forEach(envolvido => {
+            filteredEnvovidos.forEach(envolvido => {
                 if (!peopleDetails[envolvido.Pessoa]) {
                     peopleDetails[envolvido.Pessoa] = {
                         count: 1,
