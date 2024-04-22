@@ -32,7 +32,19 @@
         <button type="submit">Pesquisar</button>
     </form>
 
-    <div id="results"></div>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Iniciativa</th>
+                <th>Estratégico</th>
+                <th>Categoria</th>
+                <th>Status</th>
+                <th>Envovidos</th>
+            </tr>
+        </thead>
+        <tbody id="resultsBody">
+        </tbody>
+    </table>
 
     <script>
         // Dados das tabelas
@@ -61,33 +73,40 @@
         function search(event) {
             event.preventDefault();
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filteredIniciativas = iniciativas.filter(iniciativa =>
-                Object.values(iniciativa).some(value => value.toString().toLowerCase().includes(searchTerm))
-            );
-            const filteredEnvolvidos = envolvidos.filter(envolvido =>
-                Object.values(envolvido).some(value => value.toString().toLowerCase().includes(searchTerm))
-            );
+            const filteredResults = [];
 
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
+            iniciativas.forEach(iniciativa => {
+                const envolvidosCount = envolvidos.filter(envolvido => envolvido.CodIniciativa === iniciativa.CodIniciativa).length;
+                const iniciativaValues = Object.values(iniciativa).map(value => value.toString().toLowerCase());
+                if (iniciativaValues.some(value => value.includes(searchTerm))) {
+                    filteredResults.push({
+                        Iniciativa: iniciativa.Iniciativa,
+                        Estratégico: iniciativa.Estratégico,
+                        Categoria: iniciativa.Categoria,
+                        Status: iniciativa.Status,
+                        Envovidos: envolvidosCount
+                    });
+                }
+            });
 
-            if (filteredIniciativas.length > 0 || filteredEnvolvidos.length > 0) {
-                filteredIniciativas.forEach(iniciativa => {
-                    const envolvidosCount = filteredEnvolvidos.filter(envolvido => envolvido.CodIniciativa === iniciativa.CodIniciativa).length;
-                    resultsDiv.innerHTML += `
-                        <h2>${iniciativa.Iniciativa}</h2>
-                        <p>Estratégico: ${iniciativa.Estratégico}</p>
-                        <p>Categoria: ${iniciativa.Categoria}</p>
-                        <p>Status: ${iniciativa.Status}</p>
-                        <p>Envovidos (${envolvidosCount}):</p>
-                        <ul>
-                            ${filteredEnvolvidos.filter(envolvido => envolvido.CodIniciativa === iniciativa.CodIniciativa).map(envolvido => `<li>${envolvido.Pessoa}</li>`).join('')}
-                        </ul>
-                    `;
-                });
-            } else {
-                resultsDiv.innerHTML = '<p>Nenhum resultado encontrado.</p>';
-            }
+            displayResults(filteredResults);
+        }
+
+        function displayResults(results) {
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = '';
+
+            results.forEach(result => {
+                resultsBody.innerHTML += `
+                    <tr>
+                        <td>${result.Iniciativa}</td>
+                        <td>${result.Estratégico}</td>
+                        <td>${result.Categoria}</td>
+                        <td>${result.Status}</td>
+                        <td>${result.Envovidos}</td>
+                    </tr>
+                `;
+            });
         }
 
         document.getElementById('searchForm').addEventListener('submit', search);
