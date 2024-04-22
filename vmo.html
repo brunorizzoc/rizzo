@@ -46,6 +46,19 @@
         </tbody>
     </table>
 
+    <h2>Detalhes das Pessoas</h2>
+    <table id="peopleTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade de Projetos</th>
+                <th>Iniciativas</th>
+            </tr>
+        </thead>
+        <tbody id="peopleBody">
+        </tbody>
+    </table>
+
     <script>
         // Dados das tabelas
         const iniciativas = [
@@ -90,6 +103,7 @@
             });
 
             displayResults(filteredResults);
+            displayPeopleDetails();
         }
 
         function displayResults(results) {
@@ -104,6 +118,36 @@
                         <td>${result.Categoria}</td>
                         <td>${result.Status}</td>
                         <td>${result.Envovidos}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function displayPeopleDetails() {
+            const peopleDetails = {};
+
+            envolvidos.forEach(envolvido => {
+                if (!peopleDetails[envolvido.Pessoa]) {
+                    peopleDetails[envolvido.Pessoa] = {
+                        count: 1,
+                        iniciativas: [iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa]
+                    };
+                } else {
+                    peopleDetails[envolvido.Pessoa].count++;
+                    peopleDetails[envolvido.Pessoa].iniciativas.push(iniciativas.find(iniciativa => iniciativa.CodIniciativa === envolvido.CodIniciativa).Iniciativa);
+                }
+            });
+
+            const peopleBody = document.getElementById('peopleBody');
+            peopleBody.innerHTML = '';
+
+            Object.keys(peopleDetails).forEach(nome => {
+                const { count, iniciativas } = peopleDetails[nome];
+                peopleBody.innerHTML += `
+                    <tr>
+                        <td>${nome}</td>
+                        <td>${count}</td>
+                        <td>${iniciativas.join(', ')}</td>
                     </tr>
                 `;
             });
