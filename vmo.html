@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pesquisa de Iniciativas e Envolvidos</title>
+    <style>
+        /* Estilos CSS para a página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pesquisa de Iniciativas e Envolvidos</h1>
+    <form id="searchForm">
+        <label for="searchInput">Pesquisar:</label>
+        <input type="text" id="searchInput" name="searchInput" placeholder="Digite sua pesquisa...">
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        // Dados das tabelas
+        const iniciativas = [
+            { CodIniciativa: 1, Iniciativa: 'LIS SAC', Estratégico: 'Impulsionar Processos Internos', Categoria: 'A', Status: 'Em andamento' },
+            { CodIniciativa: 2, Iniciativa: 'EBR', Estratégico: 'Impulsionar Processos Fabris', Categoria: 'A', Status: 'Finalizado' },
+            { CodIniciativa: 3, Iniciativa: 'TELHADO FÁBRICA', Estratégico: 'Manutenções Fabris', Categoria: 'B', Status: 'Em andamento' }
+        ];
+
+        const envolvidos = [
+            { CodIniciativa: 1, Pessoa: 'Bruno Rizzo' },
+            { CodIniciativa: 1, Pessoa: 'Flavio Rosa' },
+            { CodIniciativa: 2, Pessoa: 'Gleice' },
+            { CodIniciativa: 3, Pessoa: 'Gleice' },
+            { CodIniciativa: 1, Pessoa: 'Daiane' },
+            { CodIniciativa: 2, Pessoa: 'Jacob' },
+            { CodIniciativa: 3, Pessoa: 'Katsui' },
+            { CodIniciativa: 1, Pessoa: 'Rafael Henrique' },
+            { CodIniciativa: 2, Pessoa: 'Marilyn Fietosa' },
+            { CodIniciativa: 3, Pessoa: 'Rafael Henrique' },
+            { CodIniciativa: 2, Pessoa: 'Bruno Rizzo' },
+            { CodIniciativa: 3, Pessoa: 'Bruno Rizzo' }
+        ];
+
+        // Função para buscar os dados
+        function search(event) {
+            event.preventDefault();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredIniciativas = iniciativas.filter(iniciativa =>
+                Object.values(iniciativa).some(value => value.toString().toLowerCase().includes(searchTerm))
+            );
+            const filteredEnvolvidos = envolvidos.filter(envolvido =>
+                Object.values(envolvido).some(value => value.toString().toLowerCase().includes(searchTerm))
+            );
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (filteredIniciativas.length > 0 || filteredEnvolvidos.length > 0) {
+                filteredIniciativas.forEach(iniciativa => {
+                    const envolvidosCount = filteredEnvolvidos.filter(envolvido => envolvido.CodIniciativa === iniciativa.CodIniciativa).length;
+                    resultsDiv.innerHTML += `
+                        <h2>${iniciativa.Iniciativa}</h2>
+                        <p>Estratégico: ${iniciativa.Estratégico}</p>
+                        <p>Categoria: ${iniciativa.Categoria}</p>
+                        <p>Status: ${iniciativa.Status}</p>
+                        <p>Envovidos (${envolvidosCount}):</p>
+                        <ul>
+                            ${filteredEnvolvidos.filter(envolvido => envolvido.CodIniciativa === iniciativa.CodIniciativa).map(envolvido => `<li>${envolvido.Pessoa}</li>`).join('')}
+                        </ul>
+                    `;
+                });
+            } else {
+                resultsDiv.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            }
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', search);
+    </script>
+</body>
+</html>
