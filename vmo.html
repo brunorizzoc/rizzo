@@ -106,19 +106,18 @@
             displayPeopleDetails();
         }
 
-    function displayResults(results) {
+function displayResults(results) {
     const resultsBody = document.getElementById('resultsBody');
     resultsBody.innerHTML = '';
 
     results.forEach(result => {
-        const envolvidos = envolvidos.filter(envolvido => envolvido.CodIniciativa === result.CodIniciativa).map(envolvido => envolvido.Pessoa).join('<br>');
         resultsBody.innerHTML += `
             <tr>
                 <td>${result.Iniciativa}</td>
                 <td>${result.Estratégico}</td>
                 <td>${result.Categoria}</td>
                 <td>${result.Status}</td>
-                <td>${envolvidos}</td>
+                <td>${result.Envovidos}</td>
             </tr>
         `;
     });
