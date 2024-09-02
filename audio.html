@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Leitura em Voz Alta</title>
+</head>
+<body>
+    <textarea id="text" rows="4" cols="50">Digite o texto aqui...</textarea>
+    <select id="voiceSelect"></select>
+    <button onclick="readAloud()">Ler em voz alta</button>
+
+    <script>
+        const synth = window.speechSynthesis;
+        const voiceSelect = document.getElementById('voiceSelect');
+        let voices = [];
+
+        function populateVoiceList() {
+            voices = synth.getVoices().filter(voice => voice.lang === 'pt-BR');
+            voices.forEach(voice => {
+                const option = document.createElement('option');
+                option.textContent = `${voice.name} (${voice.lang})`;
+                option.setAttribute('data-name', voice.name);
+                voiceSelect.appendChild(option);
+            });
+        }
+
+        function readAloud() {
+            const text = document.getElementById('text').value;
+            const utterance = new SpeechSynthesisUtterance(text);
+            const selectedVoiceName = voiceSelect.selectedOptions[0].getAttribute('data-name');
+            utterance.voice = voices.find(voice => voice.name === selectedVoiceName);
+            synth.speak(utterance);
+        }
+
+        populateVoiceList();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+    </script>
+</body>
+</html>
