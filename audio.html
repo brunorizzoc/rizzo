@@ -5,7 +5,7 @@
     <title>Leitura em Voz Alta</title>
 </head>
 <body>
-    <textarea id="text" rows="4" cols="50">Digite o texto aqui...</textarea>
+    <textarea id="text" rows="4" cols="50">Digite o texto aqui... teste rizzo</textarea>
     <select id="voiceSelect"></select>
     <button onclick="readAloud()">Ler em voz alta</button>
 
@@ -14,16 +14,21 @@
         const voiceSelect = document.getElementById('voiceSelect');
         let voices = [];
 
+        // Função para popular a lista de vozes
         function populateVoiceList() {
-            voices = synth.getVoices().filter(voice => voice.lang === 'pt-BR');
+            voices = synth.getVoices();
+            voiceSelect.innerHTML = '';
             voices.forEach(voice => {
-                const option = document.createElement('option');
-                option.textContent = `${voice.name} (${voice.lang})`;
-                option.setAttribute('data-name', voice.name);
-                voiceSelect.appendChild(option);
+                if (voice.lang.startsWith('pt-BR')) {  // Filtra apenas vozes em português do Brasil
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-name', voice.name);
+                    voiceSelect.appendChild(option);
+                }
             });
         }
 
+        // Função para ler o texto em voz alta
         function readAloud() {
             const text = document.getElementById('text').value;
             const utterance = new SpeechSynthesisUtterance(text);
@@ -32,7 +37,10 @@
             synth.speak(utterance);
         }
 
+        // Popula a lista de vozes ao carregar a página
         populateVoiceList();
+
+        // Atualiza a lista de vozes quando mudar
         if (speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = populateVoiceList;
         }
