@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de PPR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    form {
+      max-width: 600px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button[type="button"] {
+      background-color: #4CAF50;
+      color: white;
+    }
+    button[type="button"]:hover {
+      background-color: #45a049;
+    }
+    .btn-reiniciar {
+      background-color: #f44336; /* Vermelho */
+      color: white;
+    }
+    .btn-reiniciar:hover {
+      background-color: #e53935;
+    }
+    .resultado {
+      max-width: 300px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+    form .btn-reiniciar {
+      background-color: #f44336; /* Vermelho */
+      color: white;
+    }
+
+    form .btn-reiniciar:hover {
+      background-color: #e53935; /* Vermelho mais escuro ao passar o mouse */
+    }ground-color: #e53935; /* Vermelho mais escuro ao passar o mouse */
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="formPPR">
+      <font color="#32CD32" size="5"><strong>Simulador de PPR 😊</strong></font>
+      <label for="admissao">Você foi admitido em <font color="0000ff">2024</font>? Caso tenha sido admitido acima de 01/outubro/2024, não tem direito na participação nos resultados.<br>Informe a data de admissão (dd/mm/aaaa):</label>
+      <input type="text" id="admissao" placeholder="01/01/2024" required>
+
+      <label for="salarioBase">Qual foi o seu <font color="0000ff">salário base de dezembro de 2024</font> sem demais adicionais? 💰</label>
+      <input type="number" id="salarioBase" placeholder="10000" required>
+
+      <label for="multiplo">Indique qual o <font color="0000ff">múltiplo salarial</font> do seu cargo/grupo.<br>❓Dúvidas, <a href="https://bit.ly/grupospprplr" target="_blank">consulte os múltiplos</a> 🔢</label>
+      <select id="multiplo">
+        <option value="1.0">Técnico: 1.0</option>
+        <option value="1.4">Liderança: 1.4</option>
+        <option value="2.5">Gerência: 2.5</option>
+        <option value="4.0">Diretoria: 4.0</option>
+      </select>
+<hr>
+      <label for="promocao">Você teve <font color="#32CD32">promoção em 2024</font>?</label>
+      <select id="promocao">
+        <option value="nao">Não</option>
+        <option value="sim">Sim</option>
+      </select>
+
+      <div id="promocaoDetalhes" style="display: none;">
+        <label for="dataPromocao"><font color="#32CD32">Data</font> da mudança (dd/mm/aaaa):</label>
+        <input type="text" id="dataPromocao" placeholder="01/05/2024">
+        <label for="salarioAnterior">Salário <font color="#32CD32">antes da promoção</font>:</label>
+        <input type="number" id="salarioAnterior" placeholder="9000">
+        <label for="multiploAnterior">Múltiplo salarial <font color="#32CD32">antes da promoção</font>:</label>
+        <select id="multiploAnterior">
+          <option value="1.0">Técnico: 1.0</option>
+          <option value="1.4">Liderança: 1.4</option>
+          <option value="2.5">Gerência: 2.5</option>
+          <option value="4.0">Diretoria: 4.0</option>
+        </select>
+      </div>
+<hr>
+      <label for="interinidade">Você esteve em <font color="#32CD32">interinidade/vago zero</font> durante o ano de 2024?</label>
+      <select id="interinidade">
+        <option value="nao">Não</option>
+        <option value="sim">Sim</option>
+      </select>
+
+      <div id="interinidadeDetalhes" style="display: none;">
+        <label for="periodoInterinidade"><font color="#32CD32">Período</font> de interinidade (exemplo: 01/03/2024 a 01/07/2024):</label>
+        <input type="text" id="periodoInterinidade" placeholder="01/03/2024 a 01/07/2024">
+        <label for="salarioInterinidade"><font color="#32CD32">Valor</font> do novo salário durante a interinidade:</label>
+        <input type="number" id="salarioInterinidade" placeholder="8000">
+        <label for="mudancaMultiplo">Houve <font color="#32CD32">mudança</font> de múltiplo salarial durante o período?</label>
+        <select id="mudancaMultiplo">
+          <option value="nao">Não</option>
+          <option value="sim">Sim</option>
+        </select>
+        <div id="mudancaMultiploDetalhes" style="display: none;">
+          <label for="multiploInterinidade">Múltiplo salarial <font color="#32CD32">durante</font> a interinidade:</label>
+          <select id="multiploInterinidade">
+            <option value="1.0">Técnico: 1.0</option>
+            <option value="1.4">Liderança: 1.4</option>
+            <option value="2.5">Gerência: 2.5</option>
+            <option value="4.0">Diretoria: 4.0</option>
+          </select>
+        </div>
+      </div>
+<hr>
+      <label for="afastamento">Você teve afastamento por <font color="red">mais de 15 dias consecutivos</font> em 2024?<br>❓Dúvidas, <a href="https://bit.ly/PPRLibbs2024" target="_blank">consulte a cartilha</a> 📒</label>
+      <select id="afastamento">
+        <option value="nao">Não</option>
+        <option value="sim">Sim</option>
+      </select>
+      <div id="afastamentoDetalhes" style="display: none;">
+        <label for="mesAfastamento">Informe o <font color="red">mês</font> de afastamento (exemplo: Agosto):</label>
+        <input type="text" id="mesAfastamento" placeholder="Agosto">
+        <label for="diasAfastado">Número de <font color="red">dias</font> afastado:</label>
+        <input type="number" id="diasAfastado" placeholder="20">
+      </div>
+
+      <button type="button" onclick="calcularPPR()">Calcular PPR 🧮</button>
+      <button type="button" class="btn-reiniciar" onclick="reiniciarCalculo()">Reiniciar Cálculo 🔄</button>
+    </form>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    // Exibir ou esconder campos adicionais
+    document.getElementById('promocao').addEventListener('change', function() {
+      document.getElementById('promocaoDetalhes').style.display = this.value === 'sim' ? 'block' : 'none';
+    });
+
+    document.getElementById('interinidade').addEventListener('change', function() {
+      document.getElementById('interinidadeDetalhes').style.display = this.value === 'sim' ? 'block' : 'none';
+    });
+
+    document.getElementById('mudancaMultiplo').addEventListener('change', function() {
+      document.getElementById('mudancaMultiploDetalhes').style.display = this.value === 'sim' ? 'block' : 'none';
+    });
+
+    document.getElementById('afastamento').addEventListener('change', function() {
+      document.getElementById('afastamentoDetalhes').style.display = this.value === 'sim' ? 'block' : 'none';
+    });
+
+    // Função para validar data
+    function validarData(data) {
+      const [dia, mes, ano] = data.split('/').map(Number);
+      const dataValida = new Date(ano, mes - 1, dia);
+      return (
+        dataValida.getDate() === dia &&
+        dataValida.getMonth() === mes - 1 &&
+        dataValida.getFullYear() === ano
+      );
+    }
+
+    // Função para calcular meses elegíveis
+    function calcularMesesElegiveis(dataAdmissao) {
+      let mesesElegiveis = 12;
+      if (dataAdmissao.getFullYear() === 2024) {
+        mesesElegiveis -= dataAdmissao.getMonth();
+        if (dataAdmissao.getDate() > 15) {
+          mesesElegiveis -= 1;
+        }
+      }
+      return mesesElegiveis;
+    }
+
+    // Função para calcular o PPR
+    function calcularPPR() {
+      const admissao = document.getElementById('admissao').value;
+      const salarioBase = parseFloat(document.getElementById('salarioBase').value);
+      const multiplo = parseFloat(document.getElementById('multiplo').value);
+
+      if (!validarData(admissao)) {
+        alert('Por favor, insira uma data de admissão válida no formato dd/mm/aaaa.');
+        return;
+      }
+
+      const dataAdmissao = new Date(admissao.split('/').reverse().join('-'));
+      if (dataAdmissao > new Date('2024-10-01')) {
+        document.getElementById('resultado').innerHTML = "Admitido após 01/outubro/2024, não há direito à participação nos lucros.";
+        return;
+      }
+
+      // Calcular meses elegíveis inicialmente com base na data de admissão
+      let mesesElegiveis = calcularMesesElegiveis(dataAdmissao);
+      let ppr = 0;
+      let formulaCalculo = "";
+
+      // Ajustar meses elegíveis para afastamentos
+      let diasTrabalhados = mesesElegiveis * 30; // Aproximando cada mês como 30 dias
+      const afastamento = document.getElementById('afastamento').value;
+      if (afastamento === 'sim') {
+        const diasAfastado = parseInt(document.getElementById('diasAfastado').value || '0', 10);
+        if (diasAfastado > 15) {
+          const mesesReduzidos = Math.ceil((diasAfastado - 15) / 15); // Desconta um mês a cada 15 dias após os primeiros 15
+          mesesElegiveis -= mesesReduzidos;
+        }
+        diasTrabalhados -= diasAfastado;
+      }
+
+      // Verificar se os dias trabalhados são menores que 90
+      if (diasTrabalhados < 90) {
+        document.getElementById('resultado').innerHTML = `
+          <strong>Resultado do Cálculo do PPR:</strong><br>
+          Não há participação nos lucros devido a menos de 90 dias trabalhados.<br>
+          Este cálculo é uma SIMULAÇÃO e se tiver dúvida procurar o time de remuneração!!! 😊
+        `;
+        return;
+      }
+
+      // Promoção
+      const promocao = document.getElementById('promocao').value;
+      if (promocao === 'sim') {
+        const dataPromocao = document.getElementById('dataPromocao').value;
+        if (validarData(dataPromocao)) {
+          const salarioAnterior = parseFloat(document.getElementById('salarioAnterior').value);
+          const multiploAnterior = parseFloat(document.getElementById('multiploAnterior').value);
+          const dataPromocaoDate = new Date(dataPromocao.split('/').reverse().join('-'));
+
+          const mesesAnteriores = dataPromocaoDate.getMonth(); // Meses até o mês da promoção
+                    const mesesAtuais = mesesElegiveis - mesesAnteriores; // Meses após a promoção
+
+          const pprAntes = (salarioAnterior * multiploAnterior) * (mesesAnteriores / 12);
+          const pprDepois = (salarioBase * multiplo) * (mesesAtuais / 12);
+
+          ppr = pprAntes + pprDepois;
+
+          formulaCalculo = `(${salarioAnterior} x ${multiploAnterior} x ${mesesAnteriores} / 12) + (${salarioBase} x ${multiplo} x ${mesesAtuais} / 12)`;
+        }
+      } else {
+        // Cálculo básico do PPR sem promoções ou interinidade
+        ppr = (salarioBase * multiplo) * (mesesElegiveis / 12);
+        formulaCalculo = `${salarioBase} x ${multiplo} x ${mesesElegiveis} / 12`;
+      }
+
+      // Interinidade
+      const interinidade = document.getElementById('interinidade').value;
+      if (interinidade === 'sim') {
+        const periodoInterinidade = document.getElementById('periodoInterinidade').value;
+        const salarioInterinidade = parseFloat(document.getElementById('salarioInterinidade').value);
+        const mudancaMultiplo = document.getElementById('mudancaMultiplo').value;
+        let multiploInterinidade = multiplo;
+
+        if (mudancaMultiplo === 'sim') {
+          multiploInterinidade = parseFloat(document.getElementById('multiploInterinidade').value);
+        }
+
+        const [inicioInterinidade, fimInterinidade] = periodoInterinidade.split(' a ').map(data => new Date(data.split('/').reverse().join('-')));
+        const mesesInterinidade = Math.max(0, fimInterinidade.getMonth() - inicioInterinidade.getMonth() + 1);
+
+        const mesesForaInterinidade = mesesElegiveis - mesesInterinidade;
+        const pprInterinidade = (salarioInterinidade * multiploInterinidade) * (mesesInterinidade / 12);
+        const pprForaInterinidade = (salarioBase * multiplo) * (mesesForaInterinidade / 12);
+        ppr = pprInterinidade + pprForaInterinidade;
+
+        formulaCalculo += ` + (${salarioInterinidade} x ${multiploInterinidade} x ${mesesInterinidade} / 12) + (${salarioBase} x ${multiplo} x ${mesesForaInterinidade} / 12)`;
+      }
+
+      // Verificar se o valor do PPR é negativo
+      if (ppr <= 0) {
+        document.getElementById('resultado').innerHTML = `
+          <strong>Resultado do Cálculo do PPR:</strong><br>
+          Não há participação nos lucros.<br>
+          Este cálculo é uma SIMULAÇÃO e se tiver dúvida procurar o time de remuneração!!! 😊
+        `;
+      } else {
+        // Resumo do cálculo
+        document.getElementById('resultado').innerHTML = `
+          <strong>Resultado do Cálculo do PPR:</strong><br>
+          Salário Base: R$ ${salarioBase.toFixed(2)}<br>
+          Múltiplo do Cargo: ${multiplo}<br>
+          Meses Elegíveis: ${mesesElegiveis}<br>
+          Cálculo do PPR: ${formulaCalculo} = R$ ${ppr.toFixed(2)}<br><br>
+          Valor Bruto Aproximado: <strong>R$ ${ppr.toFixed(2)}</strong><br>
+          <br>Este cálculo é uma SIMULAÇÃO e se tiver dúvida procurar o time de remuneração!!! 😊
+        `;
+      }
+    }
+
+    // Função para reiniciar o formulário
+    function reiniciarCalculo() {
+      document.getElementById('formPPR').reset();
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('promocaoDetalhes').style.display = 'none';
+      document.getElementById('interinidadeDetalhes').style.display = 'none';
+      document.getElementById('mudancaMultiploDetalhes').style.display = 'none';
+      document.getElementById('afastamentoDetalhes').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
